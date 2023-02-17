@@ -37,29 +37,26 @@ const app = Vue.createApp({
 
   app.component('sidebar', {
     props: ['toggle', 'cart', 'inventory', 'remove'],
-    computed: {
-      
-    },
-      methods: {
-        getPrice(name) {
-          const product = this.inventory.find((p) => {
-            return p.name === name
-          })
-          return product.price.USD
-        },
-        calTotal() {
-          const total = Object.entries(this.cart).reduce((acc, curr, index) => {
-            return acc + (curr[1] * this.getPrice(curr[0]))
-          }, 0)
-          return total.toFixed(2)
-        },
-        emptyCart(){
-          if (Object.keys(this.cart).length) {
-            return false
-          }
-          return true
+    methods: {
+      getPrice(name) {
+        const product = this.inventory.find((p) => {
+          return p.name === name
+        })
+        return product.price.USD
+      },
+      calTotal() {
+        const total = Object.entries(this.cart).reduce((acc, curr, index) => {
+          return acc + (curr[1] * this.getPrice(curr[0]))
+        }, 0)
+        return total.toFixed(2)
+      },
+      emptyCart(){
+        if (Object.keys(this.cart).length) {
+          return false
         }
-    },
+        return true
+      }
+  },
     template: `
       <aside class="cart-container">
         <div class="cart">
